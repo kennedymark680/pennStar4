@@ -18,3 +18,34 @@ The weather stations in the game are displaying real-time weather for each locat
 
 
 ![PennStar4_map](https://user-images.githubusercontent.com/62405537/156926281-c0776728-51ab-48f0-b0fe-3d80e4fdcf4e.png)
+
+---
+## Getting Started
+
+1. Create the board using grid. 
+2. Lable the indiviual squares. 
+3. Generate random hospitals.
+4. Move the helicopter on the board. 
+5. Check to see if the helicopter is over the correct hospital. 
+6. Increase score. 
+7. Generate next round. 
+8. Style the webpage. 
+9. Create a second page for the instructions. 
+
+
+### Above and Beyond
+1. Increment fuel. 
+2. API for the weather stations. 
+3. Slow movement based on real time weather information. 
+4. Sending and recieving hosptal. 
+5. Decrease time interval each round. 
+
+
+### MVP
+1. Ability to move the helicopter on the board. 
+2. Generate random hospitals. 
+3. Know when the helicopter is over the hospital. 
+4. Increment the score. 
+5. Incorperate a timer. 
+
+
