@@ -40,6 +40,16 @@ body {
   text-align: center;
 }
 
+.fuel {
+  height: 4vw;
+  width: 14vw;
+  font-size: 3vw;
+  color: rgb(187, 90, 90);
+  border: 2px solid grey;
+  border-radius: 1vw;
+  text-align: center;
+}
+
 .startButton {
   height: 4vw;
   width: 8vw;

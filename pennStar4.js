@@ -10,6 +10,7 @@ const startButton = document.querySelector('.startButton')
 const restartButton = document.querySelector('.restartButton')
 const displayedTime = document.querySelector('.time')
 const scoreBoard = document.querySelector('.scoreBoard')
+const fuelDisplay = document.querySelector('.fuel')
 
 displayedTime.innerHTML = `${startingTime}`
 
@@ -57,8 +58,6 @@ class Helicopter {
 }
 
 const ps4 = new Helicopter('PS4', false)
-
-console.log(ps4)
 
 const reading = new Hospital('Reading', readingLocation, false)
 const pottstown = new Hospital('Pottstown', pottstownLocation, false)
@@ -108,46 +107,66 @@ helicopterDiv.appendChild(helicopter)
 const moveDown = () => {
   y += 1
   ps4.fuel -= 1
-  console.log(ps4.fuel)
+  fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+  if (ps4.medevacStatus === true) {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRightRed.png)'
+  } else {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
+  }
 }
 
 const moveUp = () => {
   y -= 1
   ps4.fuel -= 1
-  console.log(ps4.fuel)
+  fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+  if (ps4.medevacStatus === true) {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRightRed.png)'
+  } else {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
+  }
 }
 
 const moveRight = () => {
   x += 1
   ps4.fuel -= 1
-  console.log(ps4.fuel)
+  fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+  if (ps4.medevacStatus === true) {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRightRed.png)'
+  } else {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
+  }
 }
 
 const moveLeft = () => {
   x -= 1
   ps4.fuel -= 1
-  console.log(ps4.fuel)
+  fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+  if (ps4.medevacStatus === true) {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png)'
+  } else {
+    helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
+  }
 }
 
-const turnRight = () => {
-  helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
-}
+// const turnRight = () => {
+//   helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
+// }
 
-const turnLeft = () => {
-  helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
-}
+// const turnLeft = () => {
+//   helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
+// }
 
 const genHospital = (array) => {
   let randomNumber = Math.floor(Math.random() * array.length)
@@ -175,10 +194,8 @@ const genReceivingHospital = () => {
   receivingHospitalArray = hospitals.filter((hosp) => {
     return hosp.name !== activeHospital
   })
-  console.log(receivingHospitalArray)
   let randomNumber = Math.floor(Math.random() * receivingHospitalArray.length)
   receivingHospital = receivingHospitalArray[randomNumber]
-  console.log(receivingHospital)
   receivingHospitalLocation = receivingHospitalArray[randomNumber].location
 
   for (let i = 0; i < receivingHospitalLocation.length; i++) {
@@ -202,7 +219,7 @@ const timer = () => {}
 const startTimer = () => {
   //stopTimer()
   interval = setInterval(function () {
-    console.log(startingTime)
+    // console.log(startingTime)
 
     if (startingTime < 0) {
       clearInterval(interval)
@@ -235,7 +252,7 @@ const checkReached = () => {
     }
   })
   receivingHospitalLocation.forEach((latLog) => {
-    if (helicopterCoordinates === latLog) {
+    if (helicopterCoordinates === latLog && ps4.medevacStatus === true) {
       for (let i = 0; i < receivingHospitalLocation.length; i++) {
         const select = document.querySelector(
           `#${receivingHospitalLocation[i]}`
@@ -249,18 +266,22 @@ const checkReached = () => {
       genReceivingHospital()
       score += 1
       scoreBoard.innerHTML = `${score}`
-      console.log(receivingHospitalArray)
     }
   })
 }
 
-const helicopterColor = () => {
-  if (ps4.medevacStatus === true) {
-    helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
-  } else {
-    helicopter.style.backgroundImage = 'url(./resources/helicopter.png'
+const explosion = () => {
+  if (ps4.fuel === 0) {
+    helicopter.style.backgroundImage = 'url(./resources/explosion.gnp)'
   }
 }
+// const helicopterColor = () => {
+//   if (ps4.medevacStatus === true) {
+//     helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
+//   } else {
+//     helicopter.style.backgroundImage = 'url(./resources/helicopter.png'
+//   }
+// }
 
 const refuel = () => {
   ps4.fuel = 100
@@ -278,29 +299,25 @@ document.addEventListener('keydown', function (e) {
       break
     case 37:
       //left
-      turnLeft()
+      //turnLeft()
       moveLeft()
       checkReached()
-      helicopterColor()
       break
     case 38:
       //up
       moveUp()
       checkReached()
-      helicopterColor()
       break
     case 39:
       //right
-      turnRight()
+      //turnRight()
       moveRight()
       checkReached()
-      helicopterColor()
       break
     case 40:
       //down
       moveDown()
       checkReached()
-      helicopterColor()
       break
   }
 })
@@ -308,7 +325,6 @@ document.addEventListener('keydown', function (e) {
 startButton.addEventListener('click', () => {
   genSendingHospital(hospitals)
   genReceivingHospital()
-  console.log(activeHospitalLocation)
   startTimer()
 })
 
