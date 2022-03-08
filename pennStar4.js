@@ -1,5 +1,6 @@
 // -------------------- Variables -------------------
 let startingTime = 5
+let score = 0
 let sqrXId = 0
 let sqrYId = 0
 let y = 9
@@ -14,6 +15,7 @@ displayedTime.innerHTML = `${startingTime}`
 let helicopterCoordinates = `y${y.toString()}x${x.toString()}`
 const helicopter = document.createElement('div')
 let activeHospital = ''
+let activeHospitalLocation = []
 
 const heliPad = ['y9x11']
 const readingLocation = ['y7x1', 'y7x2', 'y8x1', 'y8x2']
@@ -135,20 +137,13 @@ const turnLeft = () => {
 const genHospital = (array) => {
   let randomNumber = Math.floor(Math.random() * array.length)
   activeHospital = array[randomNumber].name
-  const activeHospitalLocation = array[randomNumber].location
+  activeHospitalLocation = array[randomNumber].location
   for (let i = 0; i < activeHospitalLocation.length; i++) {
     const select = document.querySelector(`#${activeHospitalLocation[i]}`)
     select.style.backgroundColor = 'yellow'
     select.style.opacity = '0.4'
   }
 }
-
-// const createHighlight = () => {
-//   const highlight = document.createElement('div')
-//   const board = document.querySelector('.board')
-//   highlight.setAttribute('class', 'highlight')
-//   board.appendChild(highlight)
-// }
 
 const selectArea = (array) => {
   for (let i = 0; i < array.length; i++) {
@@ -159,21 +154,35 @@ const selectArea = (array) => {
   }
 }
 
-const timer = () => {
-  if (startingTime > 0) {
-    displayedTime.innerHTML = `${startingTime}`
-    startingTime = startingTime - 1
-  }
-}
+const timer = () => {}
 
 const startTimer = () => {
-  let interval = setInterval(timer, 1000)
+  //stopTimer()
+  interval = setInterval(function () {
+    console.log(startingTime)
+
+    if (startingTime < 0) {
+      clearInterval(interval)
+      //UpdateGameMessage('times up')
+    } else {
+      displayedTime.innerHTML = `${startingTime}`
+    }
+    startingTime -= 1
+  }, 1000)
 }
 
 const resetTimer = () => {
   startingTime = 5
   displayedTime.innerHTML = `${startingTime}`
   clearInterval(interval)
+}
+
+const checkReached = () => {
+  activeHospitalLocation.forEach((latLog) => {
+    if (helicopterCoordinates === latLog) {
+      // helicopter.style.background =
+    }
+  })
 }
 
 // EVENT LISTENER
@@ -183,25 +192,30 @@ document.addEventListener('keydown', function (e) {
       //left
       turnLeft()
       moveLeft()
+      checkReached()
       break
     case 38:
       //up
       moveUp()
+      checkReached()
       break
     case 39:
       //right
       turnRight()
       moveRight()
+      checkReached()
       break
     case 40:
       //down
       moveDown()
+      checkReached()
       break
   }
 })
 
 startButton.addEventListener('click', () => {
   genHospital(hospitals)
+  console.log(activeHospitalLocation)
   startTimer()
 })
 
