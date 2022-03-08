@@ -1,0 +1,28 @@
+.board {
+  width: 80vw;
+  display: grid;
+  grid-template-columns: 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw;
+  background-image: url(./resources/PennStar4_map.png);
+  background-size: cover;
+}
+
+.square {
+  width: 4vw;
+  height: 4vw;
+}
+
+#helicopter {
+  background-image: url(./resources/helicopter.png);
+  background-size: cover;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+/* #y7x1,
+#y7x2,
+#y8x1,
+#y8x2 {
+  background-color: rgba(255, 255, 0, 0.507);
+} */
