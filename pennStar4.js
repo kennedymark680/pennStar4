@@ -12,6 +12,7 @@ const displayedTime = document.querySelector('.time')
 const scoreBoard = document.querySelector('.scoreBoard')
 const fuelDisplay = document.querySelector('.fuel')
 
+fuelDisplay.innerHTML = `Fuel: 100`
 displayedTime.innerHTML = `${startingTime}`
 
 let helicopterCoordinates = `y${y.toString()}x${x.toString()}`
@@ -242,8 +243,12 @@ const startTimer = () => {
 
 const resetTimer = () => {
   startingTime = 5
+  ps4.fuel = 100
+  helicopterCoordinates = 'y9x11'
   displayedTime.innerHTML = `${startingTime}`
+  fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   clearInterval(interval)
+  startTimer()
 }
 
 const checkReached = () => {
