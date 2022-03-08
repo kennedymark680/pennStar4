@@ -17,6 +17,9 @@ let helicopterCoordinates = `y${y.toString()}x${x.toString()}`
 const helicopter = document.createElement('div')
 let activeHospital = ''
 let activeHospitalLocation = []
+let receivingHospital = ''
+let receivingHospitalArray = []
+let receivingHospitalLocation = []
 
 const heliPad = ['y9x11']
 const readingLocation = ['y7x1', 'y7x2', 'y8x1', 'y8x2']
@@ -157,6 +160,34 @@ const genHospital = (array) => {
   }
 }
 
+const genSendingHospital = (array) => {
+  let randomNumber = Math.floor(Math.random() * array.length)
+  activeHospital = array[randomNumber].name
+  activeHospitalLocation = array[randomNumber].location
+  for (let i = 0; i < activeHospitalLocation.length; i++) {
+    const select = document.querySelector(`#${activeHospitalLocation[i]}`)
+    select.style.backgroundColor = 'white'
+    select.style.opacity = '0.4'
+  }
+}
+
+const genReceivingHospital = () => {
+  receivingHospitalArray = hospitals.filter((hosp) => {
+    return hosp.name !== activeHospital
+  })
+  console.log(receivingHospitalArray)
+  let randomNumber = Math.floor(Math.random() * receivingHospitalArray.length)
+  receivingHospital = receivingHospitalArray[randomNumber]
+  console.log(receivingHospital)
+  receivingHospitalLocation = receivingHospitalArray[randomNumber].location
+
+  for (let i = 0; i < receivingHospitalLocation.length; i++) {
+    const select = document.querySelector(`#${receivingHospitalLocation[i]}`)
+    select.style.backgroundColor = 'red'
+    select.style.opacity = '0.4'
+  }
+}
+
 const selectArea = (array) => {
   for (let i = 0; i < array.length; i++) {
     console.log(`#${array[i]}`)
@@ -199,9 +230,26 @@ const checkReached = () => {
         // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
         ps4.medevacStatus = true
       }
-      genHospital(hospitals)
+      // score += 1
+      scoreBoard.innerHTML = `${score}`
+    }
+  })
+  receivingHospitalLocation.forEach((latLog) => {
+    if (helicopterCoordinates === latLog) {
+      for (let i = 0; i < receivingHospitalLocation.length; i++) {
+        const select = document.querySelector(
+          `#${receivingHospitalLocation[i]}`
+        )
+        select.style.backgroundColor = ''
+        select.style.opacity = ''
+        // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
+        ps4.medevacStatus = false
+      }
+      genSendingHospital(hospitals)
+      genReceivingHospital()
       score += 1
       scoreBoard.innerHTML = `${score}`
+      console.log(receivingHospitalArray)
     }
   })
 }
@@ -258,7 +306,8 @@ document.addEventListener('keydown', function (e) {
 })
 
 startButton.addEventListener('click', () => {
-  genHospital(hospitals)
+  genSendingHospital(hospitals)
+  genReceivingHospital()
   console.log(activeHospitalLocation)
   startTimer()
 })
