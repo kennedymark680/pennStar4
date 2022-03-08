@@ -196,13 +196,22 @@ const checkReached = () => {
         const select = document.querySelector(`#${activeHospitalLocation[i]}`)
         select.style.backgroundColor = ''
         select.style.opacity = ''
-        helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
+        // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
+        ps4.medevacStatus = true
       }
       genHospital(hospitals)
       score += 1
       scoreBoard.innerHTML = `${score}`
     }
   })
+}
+
+const helicopterColor = () => {
+  if (ps4.medevacStatus === true) {
+    helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
+  } else {
+    helicopter.style.backgroundImage = 'url(./resources/helicopter.png'
+  }
 }
 
 const refuel = () => {
@@ -216,6 +225,7 @@ document.addEventListener('keydown', function (e) {
       //enter
       if (helicopterCoordinates === 'y9x11') {
         refuel()
+        console.log('refueled!')
       }
       break
     case 37:
@@ -223,22 +233,26 @@ document.addEventListener('keydown', function (e) {
       turnLeft()
       moveLeft()
       checkReached()
+      helicopterColor()
       break
     case 38:
       //up
       moveUp()
       checkReached()
+      helicopterColor()
       break
     case 39:
       //right
       turnRight()
       moveRight()
       checkReached()
+      helicopterColor()
       break
     case 40:
       //down
       moveDown()
       checkReached()
+      helicopterColor()
       break
   }
 })
