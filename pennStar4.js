@@ -9,6 +9,7 @@ let x = 11
 const startButton = document.querySelector('.startButton')
 const restartButton = document.querySelector('.restartButton')
 const displayedTime = document.querySelector('.time')
+const scoreBoard = document.querySelector('.scoreBoard')
 
 displayedTime.innerHTML = `${startingTime}`
 
@@ -186,6 +187,8 @@ const checkReached = () => {
         select.style.opacity = ''
       }
       genHospital(hospitals)
+      score += 1
+      scoreBoard.innerHTML = `${score}`
     }
   })
 }
