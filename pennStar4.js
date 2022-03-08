@@ -1,8 +1,16 @@
 // -------------------- Variables -------------------
+let startingTime = 5
 let sqrXId = 0
 let sqrYId = 0
 let y = 9
 let x = 11
+
+const startButton = document.querySelector('.startButton')
+const restartButton = document.querySelector('.restartButton')
+const displayedTime = document.querySelector('.time')
+
+displayedTime.innerHTML = `${startingTime}`
+
 let helicopterCoordinates = `y${y.toString()}x${x.toString()}`
 const helicopter = document.createElement('div')
 let activeHospital = ''
@@ -129,13 +137,11 @@ const genHospital = (array) => {
   activeHospital = array[randomNumber].name
   const activeHospitalLocation = array[randomNumber].location
   for (let i = 0; i < activeHospitalLocation.length; i++) {
-    console.log(`#${activeHospitalLocation[i]}`)
     const select = document.querySelector(`#${activeHospitalLocation[i]}`)
     select.style.backgroundColor = 'yellow'
     select.style.opacity = '0.4'
   }
 }
-genHospital(hospitals)
 
 // const createHighlight = () => {
 //   const highlight = document.createElement('div')
@@ -153,25 +159,22 @@ const selectArea = (array) => {
   }
 }
 
-// selectArea(activeHospital[1])
-console.log(activeHospital)
-
-let startingTime = 5
-
 const timer = () => {
   if (startingTime > 0) {
-    const displayedTime = document.querySelector('.time')
     displayedTime.innerHTML = `${startingTime}`
     startingTime = startingTime - 1
   }
 }
 
 const startTimer = () => {
-  setInterval(timer, 1000)
+  let interval = setInterval(timer, 1000)
 }
 
-startTimer()
-console.log(startingTime)
+const resetTimer = () => {
+  startingTime = 5
+  displayedTime.innerHTML = `${startingTime}`
+  clearInterval(interval)
+}
 
 // EVENT LISTENER
 document.addEventListener('keydown', function (e) {
@@ -195,4 +198,13 @@ document.addEventListener('keydown', function (e) {
       moveDown()
       break
   }
+})
+
+startButton.addEventListener('click', () => {
+  genHospital(hospitals)
+  startTimer()
+})
+
+restartButton.addEventListener('click', () => {
+  resetTimer()
 })
