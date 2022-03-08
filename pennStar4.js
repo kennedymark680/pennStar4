@@ -46,13 +46,16 @@ class Hospital {
 }
 
 class Helicopter {
-  constructor(name, medevacStatus) {
+  constructor(name, medevacStatus, fuel) {
     this.name = name
     this.medevacStatus = medevacStatus
+    this.fuel = 100
   }
 }
 
 const ps4 = new Helicopter('PS4', false)
+
+console.log(ps4)
 
 const reading = new Hospital('Reading', readingLocation, false)
 const pottstown = new Hospital('Pottstown', pottstownLocation, false)
@@ -101,6 +104,8 @@ helicopterDiv.appendChild(helicopter)
 
 const moveDown = () => {
   y += 1
+  ps4.fuel -= 1
+  console.log(ps4.fuel)
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
@@ -108,6 +113,8 @@ const moveDown = () => {
 
 const moveUp = () => {
   y -= 1
+  ps4.fuel -= 1
+  console.log(ps4.fuel)
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
@@ -115,6 +122,8 @@ const moveUp = () => {
 
 const moveRight = () => {
   x += 1
+  ps4.fuel -= 1
+  console.log(ps4.fuel)
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
@@ -122,6 +131,8 @@ const moveRight = () => {
 
 const moveLeft = () => {
   x -= 1
+  ps4.fuel -= 1
+  console.log(ps4.fuel)
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
@@ -185,6 +196,7 @@ const checkReached = () => {
         const select = document.querySelector(`#${activeHospitalLocation[i]}`)
         select.style.backgroundColor = ''
         select.style.opacity = ''
+        helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
       }
       genHospital(hospitals)
       score += 1
@@ -193,9 +205,19 @@ const checkReached = () => {
   })
 }
 
+const refuel = () => {
+  ps4.fuel = 100
+}
+
 // EVENT LISTENER
 document.addEventListener('keydown', function (e) {
   switch (e.keyCode) {
+    case 13:
+      //enter
+      if (helicopterCoordinates === 'y9x11') {
+        refuel()
+      }
+      break
     case 37:
       //left
       turnLeft()
