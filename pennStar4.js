@@ -170,14 +170,6 @@ const moveLeft = () => {
   }
 }
 
-// const turnRight = () => {
-//   helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
-// }
-
-// const turnLeft = () => {
-//   helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
-// }
-
 const genHospital = (array) => {
   let randomNumber = Math.floor(Math.random() * array.length)
   activeHospital = array[randomNumber].name
@@ -245,6 +237,25 @@ const resetTimer = () => {
   startingTime = 5
   ps4.fuel = 100
   helicopterCoordinates = 'y9x11'
+  helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
+  helicopterDiv.appendChild(helicopter)
+
+  for (let i = 0; i < receivingHospitalLocation.length; i++) {
+    const select = document.querySelector(`#${receivingHospitalLocation[i]}`)
+    select.style.backgroundColor = ''
+    select.style.opacity = ''
+    ps4.medevacStatus = false
+  }
+
+  for (let i = 0; i < activeHospitalLocation.length; i++) {
+    const select = document.querySelector(`#${activeHospitalLocation[i]}`)
+    select.style.backgroundColor = ''
+    select.style.opacity = ''
+    // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
+    ps4.medevacStatus = false
+  }
+
+  helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
   displayedTime.innerHTML = `${startingTime}`
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   clearInterval(interval)
@@ -273,7 +284,6 @@ const checkReached = () => {
         )
         select.style.backgroundColor = ''
         select.style.opacity = ''
-        // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
         ps4.medevacStatus = false
       }
       genSendingHospital(hospitals)
@@ -284,14 +294,6 @@ const checkReached = () => {
   })
 }
 
-// const helicopterColor = () => {
-//   if (ps4.medevacStatus === true) {
-//     helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
-//   } else {
-//     helicopter.style.backgroundImage = 'url(./resources/helicopter.png'
-//   }
-// }
-
 const refuel = () => {
   ps4.fuel = 100
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
@@ -300,7 +302,7 @@ const refuel = () => {
 // EVENT LISTENER
 document.addEventListener('keydown', function (e) {
   switch (e.keyCode) {
-    case 13:
+    case 70:
       //enter
       if (helicopterCoordinates === 'y9x11') {
         refuel()
@@ -329,7 +331,6 @@ document.addEventListener('keydown', function (e) {
         moveRight()
         checkReached()
       }
-
       break
     case 40:
       //down
