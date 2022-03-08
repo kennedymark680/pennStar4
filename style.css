@@ -26,13 +26,26 @@ body {
   z-index: 2;
 }
 
+.infoSection {
+  display: flex;
+}
+
 .time {
-  height: 10vw;
-  width: 10vw;
-  font-size: 8vw;
+  height: 4vw;
+  width: 4vw;
+  font-size: 3vw;
   color: rgb(187, 90, 90);
-  border: 4px solid grey;
-  border-radius: 2vw;
-  /* border-width: 2px solid;
-  border-color: grey; */
+  border: 2px solid grey;
+  border-radius: 1vw;
+  text-align: center;
+}
+
+.startButton {
+  height: 4vw;
+  width: 8vw;
+  font-size: 3vw;
+  color: rgb(187, 90, 90);
+  border: 2px solid grey;
+  border-radius: 1vw;
+  text-align: center;
 }
