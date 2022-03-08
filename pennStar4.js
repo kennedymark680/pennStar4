@@ -180,7 +180,12 @@ const resetTimer = () => {
 const checkReached = () => {
   activeHospitalLocation.forEach((latLog) => {
     if (helicopterCoordinates === latLog) {
-      // helicopter.style.background =
+      for (let i = 0; i < activeHospitalLocation.length; i++) {
+        const select = document.querySelector(`#${activeHospitalLocation[i]}`)
+        select.style.backgroundColor = ''
+        select.style.opacity = ''
+      }
+      genHospital(hospitals)
     }
   })
 }
