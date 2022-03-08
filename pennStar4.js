@@ -111,7 +111,9 @@ const moveDown = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
-  if (ps4.medevacStatus === true) {
+  if (ps4.fuel <= 0) {
+    helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
+  } else if (ps4.medevacStatus === true) {
     helicopter.style.backgroundImage = 'url(./resources/helicopterRightRed.png)'
   } else {
     helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
@@ -125,7 +127,9 @@ const moveUp = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
-  if (ps4.medevacStatus === true) {
+  if (ps4.fuel <= 0) {
+    helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
+  } else if (ps4.medevacStatus === true) {
     helicopter.style.backgroundImage = 'url(./resources/helicopterRightRed.png)'
   } else {
     helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
@@ -139,7 +143,9 @@ const moveRight = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
-  if (ps4.medevacStatus === true) {
+  if (ps4.fuel <= 0) {
+    helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
+  } else if (ps4.medevacStatus === true) {
     helicopter.style.backgroundImage = 'url(./resources/helicopterRightRed.png)'
   } else {
     helicopter.style.backgroundImage = 'url(./resources/helicopterRight.png)'
@@ -153,7 +159,10 @@ const moveLeft = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
-  if (ps4.medevacStatus === true) {
+  console.log(ps4.fuel)
+  if (ps4.fuel <= 0) {
+    helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
+  } else if (ps4.medevacStatus === true) {
     helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png)'
   } else {
     helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
@@ -270,11 +279,6 @@ const checkReached = () => {
   })
 }
 
-const explosion = () => {
-  if (ps4.fuel === 0) {
-    helicopter.style.backgroundImage = 'url(./resources/explosion.gnp)'
-  }
-}
 // const helicopterColor = () => {
 //   if (ps4.medevacStatus === true) {
 //     helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
@@ -285,6 +289,7 @@ const explosion = () => {
 
 const refuel = () => {
   ps4.fuel = 100
+  fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
 }
 
 // EVENT LISTENER
@@ -299,25 +304,35 @@ document.addEventListener('keydown', function (e) {
       break
     case 37:
       //left
-      //turnLeft()
-      moveLeft()
-      checkReached()
+      if (ps4.fuel > 0) {
+        moveLeft()
+        checkReached()
+      }
+
       break
     case 38:
       //up
-      moveUp()
-      checkReached()
+      if (ps4.fuel > 0) {
+        moveUp()
+        checkReached()
+      }
+
       break
     case 39:
       //right
-      //turnRight()
-      moveRight()
-      checkReached()
+      if (ps4.fuel > 0) {
+        moveRight()
+        checkReached()
+      }
+
       break
     case 40:
       //down
-      moveDown()
-      checkReached()
+      if (ps4.fuel > 0) {
+        moveDown()
+        checkReached()
+      }
+
       break
   }
 })
