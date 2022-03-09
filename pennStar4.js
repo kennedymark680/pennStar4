@@ -311,7 +311,7 @@ document.addEventListener('keydown', function (e) {
       break
     case 37:
       //left
-      if (ps4.fuel > 0) {
+      if (ps4.fuel > 0 && startTimer > 0) {
         moveLeft()
         checkReached()
       }
@@ -319,7 +319,7 @@ document.addEventListener('keydown', function (e) {
       break
     case 38:
       //up
-      if (ps4.fuel > 0) {
+      if (ps4.fuel > 0 && startTimer > 0) {
         moveUp()
         checkReached()
       }
@@ -327,14 +327,14 @@ document.addEventListener('keydown', function (e) {
       break
     case 39:
       //right
-      if (ps4.fuel > 0) {
+      if (ps4.fuel > 0 && startTimer > 0) {
         moveRight()
         checkReached()
       }
       break
     case 40:
       //down
-      if (ps4.fuel > 0) {
+      if (ps4.fuel > 0 && startTimer > 0) {
         moveDown()
         checkReached()
       }
