@@ -105,13 +105,41 @@ body {
 
 .fuelBoard {
   display: flex;
+  justify-content: center;
   height: 1vw;
+  width: 80vw;
   margin: 0.2vw 0;
+  border: 2px solid grey;
+  border-radius: 5px;
 }
 
 .fuelIcon {
   width: 0.5vw;
   height: 1vw;
   margin: 0 0.1vw 0 0;
+  border-radius: 5px;
+}
+
+@keyframes pulse {
+  from {
+    opacity: '0.4';
+  }
+  to {
+    opacity: '0.0';
+  }
+}
+
+.weather {
+  animation-name: pulse;
+  animation-duration: 1s;
+}
+
+.timeBar {
+  display: flex;
+  justify-content: center;
+  height: 1vw;
+  width: 80vw;
+  margin: 0.2vw 0;
+  border: 2px solid grey;
   border-radius: 5px;
 }

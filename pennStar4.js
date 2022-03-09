@@ -16,6 +16,7 @@ const fuelDisplay = document.querySelector('.fuel')
 const patientDisplay = document.querySelector('.patients')
 const fuelBoard = document.querySelector('.fuelBoard')
 const weatherButton = document.querySelector('.weatherButton')
+const timeBar = document.querySelector('.timeBar')
 
 fuelDisplay.innerHTML = `Fuel: 100`
 displayedTime.innerHTML = `${startingTime}`
@@ -58,9 +59,29 @@ const wxAreaKPTW = [
   'y9x11',
   'y9x12'
 ]
-const wxAreaKABE = []
-const wxAreaKPHL = []
-const wxAreaKMQS = []
+const wxAreaKABE = ['y0x11', 'y0x12', 'y0x13', 'y1x11', 'y1x12', 'y1x13']
+const wxAreaKPHL = [
+  'y17x17',
+  'y17x18',
+  'y17x19',
+  'y18x17',
+  'y18x18',
+  'y18x19',
+  'y19x17',
+  'y19x18',
+  'y19x19'
+]
+const wxAreaKMQS = [
+  'y12x3',
+  'y12x4',
+  'y12x5',
+  'y13x3',
+  'y13x4',
+  'y13x5',
+  'y14x3',
+  'y14x4',
+  'y14x5'
+]
 const wxAreaKRDG = [
   'y4x1',
   'y4x2',
@@ -360,6 +381,18 @@ const tallyFuel = () => {
   }
 }
 
+const tallyTime = () => {
+  while (timeBar.firstChild) {
+    timeBar.removeChild(timeBar.firstChild)
+  }
+  for (let i = 0; i < startingTime; i++) {
+    const timeIcon = document.createElement('div')
+    timeIcon.setAttribute('class', 'fuelIcon')
+    timeIcon.style.backgroundColor = 'blue'
+    timeBar.appendChild(timeIcon)
+  }
+}
+
 // EVENT LISTENER
 document.addEventListener('keydown', function (e) {
   switch (e.keyCode) {
@@ -440,6 +473,7 @@ weatherButton.addEventListener('click', async () => {
   const showWX = (station, condition) => {
     for (let i = 0; i < station.length; i++) {
       const select = document.querySelector(`#${station[i]}`)
+      select.classList.add('weather')
       if (condition === 'VFR') {
         select.style.backgroundColor = 'green'
         select.style.opacity = '0.4'
@@ -454,4 +488,8 @@ weatherButton.addEventListener('click', async () => {
   }
 
   showWX(wxAreaKPTW, kptw)
+  showWX(wxAreaKABE, kabe)
+  showWX(wxAreaKPHL, kphl)
+  showWX(wxAreaKMQS, kmqs)
+  showWX(wxAreaKRDG, krdg)
 })
