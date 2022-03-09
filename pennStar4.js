@@ -1,5 +1,5 @@
 // -------------------- Variables -------------------
-let startingTime = 5
+let startingTime = 30
 let score = 0
 let sqrXId = 0
 let sqrYId = 0
@@ -234,9 +234,11 @@ const startTimer = () => {
 }
 
 const resetTimer = () => {
-  startingTime = 5
+  startingTime = 30
   ps4.fuel = 100
   helicopterCoordinates = 'y9x11'
+  y = 9
+  x = 11
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
 
@@ -269,10 +271,8 @@ const checkReached = () => {
         const select = document.querySelector(`#${activeHospitalLocation[i]}`)
         select.style.backgroundColor = ''
         select.style.opacity = ''
-        // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
         ps4.medevacStatus = true
       }
-      // score += 1
       scoreBoard.innerHTML = `${score}`
     }
   })
@@ -311,32 +311,32 @@ document.addEventListener('keydown', function (e) {
       break
     case 37:
       //left
-      if (ps4.fuel > 0 && startTimer > 0) {
-        moveLeft()
+      if (ps4.fuel > 0 && startingTime > -1) {
         checkReached()
+        moveLeft()
       }
 
       break
     case 38:
       //up
-      if (ps4.fuel > 0 && startTimer > 0) {
-        moveUp()
+      if (ps4.fuel > 0 && startingTime > -1) {
         checkReached()
+        moveUp()
       }
 
       break
     case 39:
       //right
-      if (ps4.fuel > 0 && startTimer > 0) {
-        moveRight()
+      if (ps4.fuel > 0 && startingTime > -1) {
         checkReached()
+        moveRight()
       }
       break
     case 40:
       //down
-      if (ps4.fuel > 0 && startTimer > 0) {
-        moveDown()
+      if (ps4.fuel > 0 && startingTime > -1) {
         checkReached()
+        moveDown()
       }
 
       break
