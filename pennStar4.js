@@ -482,8 +482,8 @@ weatherButton.addEventListener('click', async () => {
         select.style.backgroundColor = 'blue'
         select.style.opacity = '0.4'
       } else {
-        select.style.backgroundColor = 'red'
-        select.style.opacity = '0.4'
+        // select.style.backgroundColor = 'red'
+        // select.style.opacity = '0.4'
       }
     }
   }

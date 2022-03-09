@@ -3,14 +3,14 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 0;
-  background-color: rgb(38, 143, 38);
+  background-color: rgb(77, 179, 86);
 }
 
 header {
   background-image: url(./resources/Banner.png);
   background-size: cover;
   width: 100vw;
-  height: 25vw;
+  height: 12.5vw;
 }
 
 .board {
@@ -19,6 +19,8 @@ header {
   grid-template-columns: 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw;
   background-image: url(./resources/PennStar4_map.png);
   background-size: cover;
+  border: 2px solid rgb(207, 207, 207);
+  border-radius: 3px;
 }
 
 .square {
