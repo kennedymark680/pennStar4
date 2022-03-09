@@ -288,6 +288,7 @@ const startTimer = () => {
       displayedTime.innerHTML = `${startingTime}`
     }
     startingTime -= 1
+    tallyTime()
   }, 1000)
 }
 
@@ -388,7 +389,7 @@ const tallyTime = () => {
   for (let i = 0; i < startingTime; i++) {
     const timeIcon = document.createElement('div')
     timeIcon.setAttribute('class', 'fuelIcon')
-    timeIcon.style.backgroundColor = 'blue'
+    timeIcon.style.backgroundColor = 'rgb(38, 185, 217'
     timeBar.appendChild(timeIcon)
   }
 }

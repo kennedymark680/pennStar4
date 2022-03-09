@@ -2,6 +2,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0;
+  background-color: rgb(38, 143, 38);
+}
+
+header {
+  background-image: url(./resources/Banner.png);
+  background-size: cover;
+  width: 100vw;
+  height: 25vw;
 }
 
 .board {
@@ -106,23 +115,24 @@ body {
 .fuelBoard {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 1vw;
   width: 80vw;
   margin: 0.2vw 0;
-  border: 2px solid grey;
+  border: 0.5px solid grey;
   border-radius: 5px;
 }
 
 .fuelIcon {
   width: 0.5vw;
-  height: 1vw;
+  height: 0.8vw;
   margin: 0 0.1vw 0 0;
   border-radius: 5px;
 }
 
 @keyframes pulse {
   from {
-    opacity: '0.4';
+    opacity: '0.2';
   }
   to {
     opacity: '0.0';
@@ -131,12 +141,15 @@ body {
 
 .weather {
   animation-name: pulse;
-  animation-duration: 1s;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  background-color: red;
 }
 
 .timeBar {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 1vw;
   width: 80vw;
   margin: 0.2vw 0;
