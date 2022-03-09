@@ -70,6 +70,16 @@ body {
   text-align: center;
 }
 
+.weatherButton {
+  height: 4vw;
+  width: 12vw;
+  font-size: 3vw;
+  color: rgb(187, 90, 90);
+  border: 2px solid grey;
+  border-radius: 1vw;
+  text-align: center;
+}
+
 .scoreBoard {
   height: 4vw;
   width: 4vw;
@@ -78,4 +88,30 @@ body {
   border: 2px solid grey;
   border-radius: 1vw;
   text-align: center;
+}
+
+.patients {
+  display: flex;
+  height: 5vw;
+}
+
+.patient {
+  background-size: cover;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.fuelBoard {
+  display: flex;
+  height: 1vw;
+  margin: 0.2vw 0;
+}
+
+.fuelIcon {
+  width: 0.5vw;
+  height: 1vw;
+  margin: 0 0.1vw 0 0;
+  border-radius: 5px;
 }

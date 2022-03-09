@@ -6,17 +6,23 @@ let sqrYId = 0
 let y = 9
 let x = 11
 
+const API_KEY = '3cd13131bf83490187e35126a6'
+
 const startButton = document.querySelector('.startButton')
 const restartButton = document.querySelector('.restartButton')
 const displayedTime = document.querySelector('.time')
 const scoreBoard = document.querySelector('.scoreBoard')
 const fuelDisplay = document.querySelector('.fuel')
+const patientDisplay = document.querySelector('.patients')
+const fuelBoard = document.querySelector('.fuelBoard')
+const weatherButton = document.querySelector('.weatherButton')
 
 fuelDisplay.innerHTML = `Fuel: 100`
 displayedTime.innerHTML = `${startingTime}`
 
 let helicopterCoordinates = `y${y.toString()}x${x.toString()}`
 const helicopter = document.createElement('div')
+
 let activeHospital = ''
 let activeHospitalLocation = []
 let receivingHospital = ''
@@ -39,6 +45,32 @@ const hupLocation = [
   'y15x17',
   'y15x18',
   'y15x19'
+]
+
+const wxAreaKPTW = [
+  'y7x10',
+  'y7x11',
+  'y7x12',
+  'y8x10',
+  'y8x11',
+  'y8x12',
+  'y9x10',
+  'y9x11',
+  'y9x12'
+]
+const wxAreaKABE = []
+const wxAreaKPHL = []
+const wxAreaKMQS = []
+const wxAreaKRDG = [
+  'y4x1',
+  'y4x2',
+  'y4x3',
+  'y5x1',
+  'y5x2',
+  'y5x3',
+  'y6x1',
+  'y6x2',
+  'y6x3'
 ]
 
 // --------------- Objects ---------------------
@@ -112,6 +144,8 @@ const moveDown = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+  checkReached()
+  tallyFuel()
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -128,6 +162,8 @@ const moveUp = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+  checkReached()
+  tallyFuel()
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -144,6 +180,8 @@ const moveRight = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+  checkReached()
+  tallyFuel()
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -160,7 +198,8 @@ const moveLeft = () => {
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
-  console.log(ps4.fuel)
+  checkReached()
+  tallyFuel()
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -209,7 +248,7 @@ const genReceivingHospital = () => {
 
 const selectArea = (array) => {
   for (let i = 0; i < array.length; i++) {
-    console.log(`#${array[i]}`)
+    //console.log(`#${array[i]}`)
     const select = document.querySelector(`#${array[i]}`)
     select.style.backgroundColor = 'yellow'
     select.style.opacity = '0.4'
@@ -221,8 +260,6 @@ const timer = () => {}
 const startTimer = () => {
   //stopTimer()
   interval = setInterval(function () {
-    // console.log(startingTime)
-
     if (startingTime < 0) {
       clearInterval(interval)
       //UpdateGameMessage('times up')
@@ -261,7 +298,10 @@ const resetTimer = () => {
   displayedTime.innerHTML = `${startingTime}`
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   clearInterval(interval)
+  genSendingHospital(hospitals)
+  genReceivingHospital()
   startTimer()
+  tallyFuel()
 }
 
 const checkReached = () => {
@@ -290,6 +330,7 @@ const checkReached = () => {
       genReceivingHospital()
       score += 1
       scoreBoard.innerHTML = `${score}`
+      tallyPatients()
     }
   })
 }
@@ -297,6 +338,26 @@ const checkReached = () => {
 const refuel = () => {
   ps4.fuel = 100
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
+  tallyFuel()
+}
+
+const tallyPatients = () => {
+  const patient = document.createElement('div')
+  patient.setAttribute('class', 'patient')
+  patient.style.backgroundImage = 'url(./resources/patient.png)'
+  patientDisplay.appendChild(patient)
+}
+
+const tallyFuel = () => {
+  while (fuelBoard.firstChild) {
+    fuelBoard.removeChild(fuelBoard.firstChild)
+  }
+  for (let i = 0; i < ps4.fuel; i++) {
+    const fuelIcon = document.createElement('div')
+    fuelIcon.setAttribute('class', 'fuelIcon')
+    fuelIcon.style.backgroundColor = 'red'
+    fuelBoard.appendChild(fuelIcon)
+  }
 }
 
 // EVENT LISTENER
@@ -312,7 +373,6 @@ document.addEventListener('keydown', function (e) {
     case 37:
       //left
       if (ps4.fuel > 0 && startingTime > -1) {
-        checkReached()
         moveLeft()
       }
 
@@ -320,22 +380,18 @@ document.addEventListener('keydown', function (e) {
     case 38:
       //up
       if (ps4.fuel > 0 && startingTime > -1) {
-        checkReached()
         moveUp()
       }
-
       break
     case 39:
       //right
       if (ps4.fuel > 0 && startingTime > -1) {
-        checkReached()
         moveRight()
       }
       break
     case 40:
       //down
       if (ps4.fuel > 0 && startingTime > -1) {
-        checkReached()
         moveDown()
       }
 
@@ -347,8 +403,55 @@ startButton.addEventListener('click', () => {
   genSendingHospital(hospitals)
   genReceivingHospital()
   startTimer()
+  tallyFuel()
 })
 
 restartButton.addEventListener('click', () => {
   resetTimer()
+})
+
+weatherButton.addEventListener('click', async () => {
+  const responseKPTW = await axios.get(
+    `https://api.checkwx.com/metar/KPTW/decoded?x-api-key=${API_KEY}`
+  )
+
+  const responseKABE = await axios.get(
+    `https://api.checkwx.com/metar/KABE/decoded?x-api-key=${API_KEY}`
+  )
+
+  const responseKPHL = await axios.get(
+    `https://api.checkwx.com/metar/KPHL/decoded?x-api-key=${API_KEY}`
+  )
+
+  const responseKMQS = await axios.get(
+    `https://api.checkwx.com/metar/KMQS/decoded?x-api-key=${API_KEY}`
+  )
+
+  const responseKRDG = await axios.get(
+    `https://api.checkwx.com/metar/KRDG/decoded?x-api-key=${API_KEY}`
+  )
+
+  const kptw = responseKPTW.data.data[0].flight_category
+  const kabe = responseKABE.data.data[0].flight_category
+  const kphl = responseKPHL.data.data[0].flight_category
+  const kmqs = responseKMQS.data.data[0].flight_category
+  const krdg = responseKRDG.data.data[0].flight_category
+
+  const showWX = (station, condition) => {
+    for (let i = 0; i < station.length; i++) {
+      const select = document.querySelector(`#${station[i]}`)
+      if (condition === 'VFR') {
+        select.style.backgroundColor = 'green'
+        select.style.opacity = '0.4'
+      } else if (condition === 'MVFR') {
+        select.style.backgroundColor = 'blue'
+        select.style.opacity = '0.4'
+      } else {
+        select.style.backgroundColor = 'red'
+        select.style.opacity = '0.4'
+      }
+    }
+  }
+
+  showWX(wxAreaKPTW, kptw)
 })
