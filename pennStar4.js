@@ -398,6 +398,11 @@ const tallyTime = () => {
   }
 }
 
+const changeToTimer = () => {
+  if (startingTime <= 0) {
+    helicopter.style.backgroundImage = 'url(./resources/time.png)'
+  }
+}
 // EVENT LISTENER
 document.addEventListener('keydown', function (e) {
   switch (e.keyCode) {
@@ -405,11 +410,11 @@ document.addEventListener('keydown', function (e) {
       //enter
       if (helicopterCoordinates === 'y9x11') {
         refuel()
-        console.log('refueled!')
       }
       break
     case 37:
       //left
+      changeToTimer()
       if (ps4.fuel > 0 && startingTime > -1) {
         moveLeft()
       }
@@ -417,18 +422,21 @@ document.addEventListener('keydown', function (e) {
       break
     case 38:
       //up
+      changeToTimer()
       if (ps4.fuel > 0 && startingTime > -1) {
         moveUp()
       }
       break
     case 39:
       //right
+      changeToTimer()
       if (ps4.fuel > 0 && startingTime > -1) {
         moveRight()
       }
       break
     case 40:
       //down
+      changeToTimer()
       if (ps4.fuel > 0 && startingTime > -1) {
         moveDown()
       }
