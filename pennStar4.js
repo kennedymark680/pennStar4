@@ -157,8 +157,14 @@ helicopter.setAttribute('id', 'helicopter')
 helicopterDiv.appendChild(helicopter)
 
 // ----------------------------
-
+if (y <= 0) {
+  y = 20
+}
 const moveDown = () => {
+  if (y >= 19) {
+    y = -1
+  }
+
   y += 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
@@ -177,6 +183,10 @@ const moveDown = () => {
 }
 
 const moveUp = () => {
+  if (y <= 0) {
+    y = 20
+  }
+
   y -= 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
@@ -195,6 +205,9 @@ const moveUp = () => {
 }
 
 const moveRight = () => {
+  if (x >= 19) {
+    x = 1
+  }
   x += 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
@@ -213,6 +226,10 @@ const moveRight = () => {
 }
 
 const moveLeft = () => {
+  if (x <= 0) {
+    x = 20
+  }
+
   x -= 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
@@ -269,7 +286,6 @@ const genReceivingHospital = () => {
 
 const selectArea = (array) => {
   for (let i = 0; i < array.length; i++) {
-    //console.log(`#${array[i]}`)
     const select = document.querySelector(`#${array[i]}`)
     select.style.backgroundColor = 'yellow'
     select.style.opacity = '0.4'
@@ -403,6 +419,7 @@ const changeToTimer = () => {
     helicopter.style.backgroundImage = 'url(./resources/time.png)'
   }
 }
+
 // EVENT LISTENER
 document.addEventListener('keydown', function (e) {
   switch (e.keyCode) {
@@ -418,7 +435,6 @@ document.addEventListener('keydown', function (e) {
       if (ps4.fuel > 0 && startingTime > -1) {
         moveLeft()
       }
-
       break
     case 38:
       //up
