@@ -175,3 +175,18 @@ header {
   margin: 0 0.1vw 0 0;
   border-radius: 2px;
 }
+
+.instructions {
+  margin: 1vw;
+  height: 3vw;
+  width: 10vw;
+  font-size: 1.5vw;
+  color: rgb(187, 90, 90);
+  border: 2px solid grey;
+  border-radius: 1vw;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
