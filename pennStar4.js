@@ -1,5 +1,5 @@
 // -------------------- Variables -------------------
-let startingTime = 30
+let startingTime = 60
 let score = 0
 let sqrXId = 0
 let sqrYId = 0
@@ -293,7 +293,7 @@ const startTimer = () => {
 }
 
 const resetTimer = () => {
-  startingTime = 30
+  startingTime = 60
   ps4.fuel = 100
   helicopterCoordinates = 'y9x11'
   y = 9
@@ -314,6 +314,10 @@ const resetTimer = () => {
     select.style.opacity = ''
     // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
     ps4.medevacStatus = false
+  }
+
+  while (patientDisplay.firstChild) {
+    patientDisplay.removeChild(patientDisplay.firstChild)
   }
 
   helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
@@ -388,8 +392,8 @@ const tallyTime = () => {
   }
   for (let i = 0; i < startingTime; i++) {
     const timeIcon = document.createElement('div')
-    timeIcon.setAttribute('class', 'fuelIcon')
-    timeIcon.style.backgroundColor = 'rgb(38, 185, 217'
+    timeIcon.setAttribute('class', 'timeIcon')
+    timeIcon.style.backgroundColor = 'rgb(10, 119, 143)'
     timeBar.appendChild(timeIcon)
   }
 }
@@ -477,13 +481,13 @@ weatherButton.addEventListener('click', async () => {
       select.classList.add('weather')
       if (condition === 'VFR') {
         select.style.backgroundColor = 'green'
-        select.style.opacity = '0.4'
+        select.style.opacity = '0.1'
       } else if (condition === 'MVFR') {
         select.style.backgroundColor = 'blue'
-        select.style.opacity = '0.4'
+        select.style.opacity = '0.1'
       } else {
-        // select.style.backgroundColor = 'red'
-        // select.style.opacity = '0.4'
+        select.style.backgroundColor = 'red'
+        select.style.opacity = '0.1'
       }
     }
   }
