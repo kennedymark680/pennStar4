@@ -157,7 +157,7 @@ header {
   border-radius: 5px;
 }
 
-/* @keyframes pulse {
+@keyframes pulse {
   from {
     opacity: '0.2';
   }
@@ -169,7 +169,7 @@ header {
 .weather {
   animation: pulse 3s infinite;
   background-color: red;
-} */
+}
 
 .timeBar {
   display: flex;
