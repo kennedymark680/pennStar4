@@ -5,6 +5,7 @@ let sqrXId = 0
 let sqrYId = 0
 let y = 9
 let x = 11
+let night = false
 
 const API_KEY = '3cd13131bf83490187e35126a6'
 
@@ -18,6 +19,7 @@ const patientDisplay = document.querySelector('.patients')
 const fuelBoard = document.querySelector('.fuelBoard')
 const weatherButton = document.querySelector('.weatherButton')
 const timeBar = document.querySelector('.timeBar')
+const nightMode = document.querySelector('.nightMode')
 
 fuelDisplay.innerHTML = `Fuel: 100`
 displayedTime.innerHTML = `${startingTime}`
@@ -550,4 +552,16 @@ weatherButton.addEventListener('click', async () => {
   showWX(wxAreaKPHL, kphl)
   showWX(wxAreaKMQS, kmqs)
   showWX(wxAreaKRDG, krdg)
+})
+
+// Night Mode
+nightMode.addEventListener('click', () => {
+  let banner = document.querySelector('.header')
+  if (night === false) {
+    banner.style.backgroundImage = 'url(./resources/BannerNight.png)'
+    night = true
+  } else {
+    banner.style.backgroundImage = 'url(./resources/Banner.png)'
+    night = false
+  }
 })
