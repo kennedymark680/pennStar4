@@ -1,6 +1,5 @@
 .instructions {
   width: 60vw;
-  /* background-image: ; */
 }
 
 header {
@@ -23,9 +22,6 @@ body {
   width: 85vw;
   height: 110vw;
   background-image: url(./resources/instructions.png);
-}
-
-.play_game {
 }
 
 a {
