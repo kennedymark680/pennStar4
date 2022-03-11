@@ -8,6 +8,7 @@ let x = 11
 
 const API_KEY = '3cd13131bf83490187e35126a6'
 
+// --------------------- QuerySelectors -----------------------
 const startButton = document.querySelector('.startButton')
 const restartButton = document.querySelector('.restartButton')
 const displayedTime = document.querySelector('.time')
@@ -30,6 +31,7 @@ let receivingHospital = ''
 let receivingHospitalArray = []
 let receivingHospitalLocation = []
 
+// ------------------ Hospital Areas ---------------------
 const heliPad = ['y9x11']
 const readingLocation = ['y7x1', 'y7x2', 'y8x1', 'y8x2']
 const pottstownLocation = ['y10x9']
@@ -48,6 +50,7 @@ const hupLocation = [
   'y15x19'
 ]
 
+// --------------------- Weather Stations ------------------
 const wxAreaKPTW = [
   'y7x10',
   'y7x11',
@@ -138,6 +141,8 @@ const hospitals = [
 ]
 
 // ------------ FUNCTIONS --------------------
+
+// Generating the game board with unique ID's
 for (let i = 0; i < 20; i++) {
   for (let j = 0; j < 20; j++) {
     const newDiv = document.createElement('div')
@@ -151,28 +156,31 @@ for (let i = 0; i < 20; i++) {
   sqrYId += 1
 }
 
-// Setting the helicopterDiv after it is created by the function above.
+// Setting the helicopterDiv
 let helicopterDiv = document.getElementById(helicopterCoordinates)
 helicopter.setAttribute('id', 'helicopter')
 helicopterDiv.appendChild(helicopter)
 
 // ----------------------------
-if (y <= 0) {
-  y = 20
-}
+
 const moveDown = () => {
+  // Fly through board
   if (y >= 19) {
     y = -1
   }
 
+  // Moving the helicopter
   y += 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+
   checkReached()
   tallyFuel()
+
+  // Helicopter image display
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -183,18 +191,23 @@ const moveDown = () => {
 }
 
 const moveUp = () => {
+  //Fly through board
   if (y <= 0) {
     y = 20
   }
 
+  // Moving the helicopter
   y -= 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+
   checkReached()
   tallyFuel()
+
+  // Helicopter image display
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -205,17 +218,23 @@ const moveUp = () => {
 }
 
 const moveRight = () => {
+  //Fly through board
   if (x >= 19) {
-    x = 1
+    x = -1
   }
+
+  // Moving the helicopter
   x += 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+
   checkReached()
   tallyFuel()
+
+  // Helicopter image display
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -226,18 +245,23 @@ const moveRight = () => {
 }
 
 const moveLeft = () => {
+  //Fly through board
   if (x <= 0) {
     x = 20
   }
 
+  // Moving the helicopter
   x -= 1
   ps4.fuel -= 1
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   helicopterCoordinates = `y${y}x${x}`
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
+
   checkReached()
   tallyFuel()
+
+  // Helicopter image display
   if (ps4.fuel <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/explosion.png)'
   } else if (ps4.medevacStatus === true) {
@@ -247,21 +271,13 @@ const moveLeft = () => {
   }
 }
 
-const genHospital = (array) => {
-  let randomNumber = Math.floor(Math.random() * array.length)
-  activeHospital = array[randomNumber].name
-  activeHospitalLocation = array[randomNumber].location
-  for (let i = 0; i < activeHospitalLocation.length; i++) {
-    const select = document.querySelector(`#${activeHospitalLocation[i]}`)
-    select.style.backgroundColor = 'yellow'
-    select.style.opacity = '0.4'
-  }
-}
-
 const genSendingHospital = (array) => {
+  // Producing a random number to pick a hospital
   let randomNumber = Math.floor(Math.random() * array.length)
   activeHospital = array[randomNumber].name
   activeHospitalLocation = array[randomNumber].location
+
+  // Changing the color of the area around the hospital
   for (let i = 0; i < activeHospitalLocation.length; i++) {
     const select = document.querySelector(`#${activeHospitalLocation[i]}`)
     select.style.backgroundColor = 'white'
@@ -270,13 +286,17 @@ const genSendingHospital = (array) => {
 }
 
 const genReceivingHospital = () => {
+  // Eliminating sending hospital from the array
   receivingHospitalArray = hospitals.filter((hosp) => {
     return hosp.name !== activeHospital
   })
+
+  // Producing a random number to pick a hospital
   let randomNumber = Math.floor(Math.random() * receivingHospitalArray.length)
   receivingHospital = receivingHospitalArray[randomNumber]
   receivingHospitalLocation = receivingHospitalArray[randomNumber].location
 
+  // Changing the color of the area around the hospital
   for (let i = 0; i < receivingHospitalLocation.length; i++) {
     const select = document.querySelector(`#${receivingHospitalLocation[i]}`)
     select.style.backgroundColor = 'red'
@@ -284,22 +304,11 @@ const genReceivingHospital = () => {
   }
 }
 
-const selectArea = (array) => {
-  for (let i = 0; i < array.length; i++) {
-    const select = document.querySelector(`#${array[i]}`)
-    select.style.backgroundColor = 'yellow'
-    select.style.opacity = '0.4'
-  }
-}
-
-const timer = () => {}
-
 const startTimer = () => {
-  //stopTimer()
+  // Creating the countdown
   interval = setInterval(function () {
     if (startingTime < 0) {
       clearInterval(interval)
-      //UpdateGameMessage('times up')
     } else {
       displayedTime.innerHTML = `${startingTime}`
     }
@@ -309,6 +318,7 @@ const startTimer = () => {
 }
 
 const resetTimer = () => {
+  // Reset the game values and helicopter position
   startingTime = 60
   ps4.fuel = 100
   helicopterCoordinates = 'y9x11'
@@ -317,6 +327,7 @@ const resetTimer = () => {
   helicopterDiv = document.querySelector(`#${helicopterCoordinates}`)
   helicopterDiv.appendChild(helicopter)
 
+  // Generating new hospitals
   for (let i = 0; i < receivingHospitalLocation.length; i++) {
     const select = document.querySelector(`#${receivingHospitalLocation[i]}`)
     select.style.backgroundColor = ''
@@ -328,17 +339,20 @@ const resetTimer = () => {
     const select = document.querySelector(`#${activeHospitalLocation[i]}`)
     select.style.backgroundColor = ''
     select.style.opacity = ''
-    // helicopter.style.backgroundImage = 'url(./resources/helicopterRed.png'
     ps4.medevacStatus = false
   }
 
+  // Clearing the tallied patients
   while (patientDisplay.firstChild) {
     patientDisplay.removeChild(patientDisplay.firstChild)
   }
 
+  // Resetting the helicopter
   helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
   displayedTime.innerHTML = `${startingTime}`
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
+
+  // Clearing time and restarting game play
   clearInterval(interval)
   genSendingHospital(hospitals)
   genReceivingHospital()
@@ -347,6 +361,7 @@ const resetTimer = () => {
 }
 
 const checkReached = () => {
+  // Determining if the helicopter is over the hospitals designated area
   activeHospitalLocation.forEach((latLog) => {
     if (helicopterCoordinates === latLog) {
       for (let i = 0; i < activeHospitalLocation.length; i++) {
@@ -368,6 +383,8 @@ const checkReached = () => {
         select.style.opacity = ''
         ps4.medevacStatus = false
       }
+
+      // Tallying score and regenerating hospitals
       genSendingHospital(hospitals)
       genReceivingHospital()
       score += 1
@@ -378,12 +395,14 @@ const checkReached = () => {
 }
 
 const refuel = () => {
+  // Increasing fuel
   ps4.fuel = 100
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
   tallyFuel()
 }
 
 const tallyPatients = () => {
+  // Adding patients to tally bar
   const patient = document.createElement('div')
   patient.setAttribute('class', 'patient')
   patient.style.backgroundImage = 'url(./resources/patient.png)'
@@ -391,6 +410,7 @@ const tallyPatients = () => {
 }
 
 const tallyFuel = () => {
+  // Removing and adding new fuel tallies
   while (fuelBoard.firstChild) {
     fuelBoard.removeChild(fuelBoard.firstChild)
   }
@@ -403,6 +423,7 @@ const tallyFuel = () => {
 }
 
 const tallyTime = () => {
+  // Removing and adding new tallies
   while (timeBar.firstChild) {
     timeBar.removeChild(timeBar.firstChild)
   }
@@ -415,12 +436,15 @@ const tallyTime = () => {
 }
 
 const changeToTimer = () => {
+  // Change the helicopter to a clock when time is out.
   if (startingTime <= 0) {
     helicopter.style.backgroundImage = 'url(./resources/time.png)'
   }
 }
 
-// EVENT LISTENER
+// ---------------  EVENT LISTENER ------------------
+
+// Helicopter Movement
 document.addEventListener('keydown', function (e) {
   switch (e.keyCode) {
     case 70:
@@ -461,6 +485,7 @@ document.addEventListener('keydown', function (e) {
   }
 })
 
+// Play Button
 startButton.addEventListener('click', () => {
   genSendingHospital(hospitals)
   genReceivingHospital()
@@ -468,10 +493,12 @@ startButton.addEventListener('click', () => {
   tallyFuel()
 })
 
+// Restart Button
 restartButton.addEventListener('click', () => {
   resetTimer()
 })
 
+// Checking the real time weather for each station
 weatherButton.addEventListener('click', async () => {
   const responseKPTW = await axios.get(
     `https://api.checkwx.com/metar/KPTW/decoded?x-api-key=${API_KEY}`
@@ -493,12 +520,14 @@ weatherButton.addEventListener('click', async () => {
     `https://api.checkwx.com/metar/KRDG/decoded?x-api-key=${API_KEY}`
   )
 
+  // Retrieved weather information
   const kptw = responseKPTW.data.data[0].flight_category
   const kabe = responseKABE.data.data[0].flight_category
   const kphl = responseKPHL.data.data[0].flight_category
   const kmqs = responseKMQS.data.data[0].flight_category
   const krdg = responseKRDG.data.data[0].flight_category
 
+  // Displaying to correct color depending on the station and condition
   const showWX = (station, condition) => {
     for (let i = 0; i < station.length; i++) {
       const select = document.querySelector(`#${station[i]}`)
