@@ -321,6 +321,7 @@ const startTimer = () => {
 
 const resetTimer = () => {
   // Reset the game values and helicopter position
+  score = 0
   startingTime = 60
   ps4.fuel = 100
   helicopterCoordinates = 'y9x11'
@@ -353,6 +354,7 @@ const resetTimer = () => {
   helicopter.style.backgroundImage = 'url(./resources/helicopter.png)'
   displayedTime.innerHTML = `${startingTime}`
   fuelDisplay.innerHTML = `Fuel: ${ps4.fuel}`
+  scoreBoard.innerHTML = `${score}`
 
   // Clearing time and restarting game play
   clearInterval(interval)
