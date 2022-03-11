@@ -16,24 +16,26 @@ header {
 .board {
   width: 80vw;
   height: 80vw;
+  max-width: 750px;
+  max-height: 750px;
   display: grid;
-  grid-template-columns: 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw 4vw;
   background-image: url(./resources/PennStar4_map.png);
   background-size: cover;
   border: 2px solid grey;
   border-radius: 3px;
-}
-
-.square {
-  width: 4vw;
-  height: 4vw;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
 }
 
 #helicopter {
   background-image: url(./resources/helicopter.png);
   background-size: cover;
-  width: 4vw;
-  height: 4vw;
+  /* width: 1fr;
+  height: 1fr; */
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 90%;
+  min-height: 90%;
   border-radius: 5px;
   z-index: 2;
 }
