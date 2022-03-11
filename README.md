@@ -18,7 +18,7 @@
 
 A game to simulate the exciting experience of being an EMS helicopter pilot.
 
-Prior to becoming a software engineer, I was a helicopter pilot flying for the University of Pennsylvania. The majority of the flying was conducting interfacility transfers between hospitals. The idea was to take the sickest patient from one hospital and transfer them to a higher level of care. This gameboard is an actual representation of hospitals and routes I used to fly on a regular basis.
+Prior to becoming a software engineer, I was a helicopter pilot flying for the University of Pennsylvania. The majority of the flying was conducting interfacility transfers between hospitals. The idea was to take the sickest patient from one hospital and transfer them to a higher level of care. This game board is an actual representation of hospitals and routes I used to fly on a regular basis.
 
 If you click the "weather" button, the stations in the game will display real-time weather for each location. The stations will show green for good weather, blue for marginal, and red from poor weather.
 
@@ -62,7 +62,7 @@ For best game play experience, screen size should taller than wide.
 ## Steps to Creation
 
 1. Create the board using grid.
-2. Lable the indiviual squares.
+2. Label the individual squares.
 3. Generate random hospitals.
 4. Move the helicopter on the board.
 5. Check to see if the helicopter is over the correct hospital.
@@ -75,7 +75,7 @@ For best game play experience, screen size should taller than wide.
 
 1. Increment fuel.
 2. API for the weather stations.
-3. Sending and recieving hosptal.
+3. Sending and receiving hospital.
 4. Helicopter transitions through borders.
 
 ### MVP
@@ -84,7 +84,7 @@ For best game play experience, screen size should taller than wide.
 2. Generate random hospitals.
 3. Know when the helicopter is over the hospital.
 4. Increment the score.
-5. Incorperate a timer.
+5. Incorporate a timer.
 
 ---
 
