@@ -150,9 +150,11 @@ header {
   background-color: rgba(255, 255, 255, 0.247);
 }
 
-.weather {
-  animation: pulse 3s infinite;
-  background-color: red;
+.fuelIcon {
+  width: 0.5vw;
+  height: 0.8vw;
+  margin: 0 0.1vw 0 0;
+  border-radius: 5px;
 }
 
 .timeBar {
